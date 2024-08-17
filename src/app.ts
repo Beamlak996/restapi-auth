@@ -3,17 +3,10 @@ import config from "config";
 import { connect } from "./utils/connect";
 import { log } from "./utils/logger";
 import { ErrorMiddleware } from "./middleware/error-middleware";
+import routes from "./routes";
 
 const app = express();
 
-// unknown routes
-app.all("*", (req: Request, res: Response, next: NextFunction) => {
-  const error = new Error(`Route ${req.originalUrl} not found`) as any;
-  error.statusCode = 404;
-  next(error);
-});
-
-app.use(ErrorMiddleware);
 
 const port = config.get<number>("port") || 1337;
 
@@ -29,3 +22,14 @@ const startServer = async () => {
 };
 
 startServer();
+
+app.use("/", routes());
+
+// unknown routes
+app.all("*", (req: Request, res: Response, next: NextFunction) => {
+  const error = new Error(`Route ${req.originalUrl} not found`) as any;
+  error.statusCode = 404;
+  next(error);
+});
+
+app.use(ErrorMiddleware);
