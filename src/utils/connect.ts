@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import config from "config";
 import { log } from "./logger";
 
+
 export const connect = async (): Promise<void> => {
   const dbUrl = config.get<string>("dbUrl");
 

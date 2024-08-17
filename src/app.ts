@@ -5,6 +5,7 @@ import { log } from "./utils/logger";
 import { ErrorMiddleware } from "./middleware/error-middleware";
 import routes from "./routes";
 
+
 const app = express();
 
 app.use(express.json())
